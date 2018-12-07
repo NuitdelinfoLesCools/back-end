@@ -4,10 +4,10 @@ static_url: ./static
 dump_data: true
 database:
   name: nuitinfo2018
-  host: postgres
+  host: localhost
   port: 5432
-  user: supinfo
-  password: supinfo
+  user: amine
+  password: a
   ssl_mode: 0
   max_idle_conn: 100
   max_open_conn: 100

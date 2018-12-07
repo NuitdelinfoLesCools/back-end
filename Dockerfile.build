@@ -1,0 +1,20 @@
+FROM golang:1.11
+
+# THIS IMAGE IS ALMOST 800Mo
+# Do not run this on prod :)
+
+ADD pkg .
+ADD cmd .
+ADD config.yaml .
+ADD go.mod
+ADD go.sum
+
+ENV GO111MODULE on
+
+RUN go mod download
+
+RUN go build -o server.o cmd/*.go
+
+EXPOSE 9000
+
+ENTRYPOINT [ "./server.o" ]

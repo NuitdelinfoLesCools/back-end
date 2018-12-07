@@ -1,8 +1,7 @@
 package handler
 
 import (
-	"strconv"
-
+	jwt "github.com/appleboy/gin-jwt"
 	"github.com/gin-gonic/gin"
 
 	"github.com/NuitdelinfoLesCools/back-end/pkg/handler/object"
@@ -34,14 +33,10 @@ func CreateAlert(c *gin.Context) {
 }
 
 func GetAlerts(c *gin.Context) {
-	userId := c.Query("user_id")
-	userIdf, err := strconv.Atoi(userId)
-	if err != nil {
-		c.JSON(200, object.Fail(err))
-		return
-	}
+	claims := jwt.ExtractClaims(c)
+	id := claims["id"]
 
-	foods, err := store.Agent.GetAlerts(int64(userIdf))
+	foods, err := store.Agent.GetAlerts(int64(id.(float64)))
 	if err != nil {
 		c.JSON(200, object.Fail(err))
 		return

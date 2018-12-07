@@ -1,0 +1,22 @@
+version: '2'
+services:
+
+  #Database
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=supinfo
+      - POSTGRES_PASSWORD=supinfo
+      - POSTGRES_DB=nuitinfo2018
+    
+  # Backend
+  backend:
+    image: nilescools/back-end
+    ports:
+      - 9000:9000
+
+    depends_on:
+      - postgres
+
+    links:
+      - postgres:postgres

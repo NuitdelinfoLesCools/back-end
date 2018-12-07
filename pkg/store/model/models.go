@@ -14,8 +14,8 @@ type User struct {
 type Position struct {
 	Id        int64     `json:"id"`
 	UserId    int64     `json:"user_id"`
-	Latitude  float64   `json:"latitude"`
-	Longitude float64   `json:"longitude"`
+	Latitude  float64   `json:"lat"`
+	Longitude float64   `json:"lon"`
 	Date      time.Time `xorm:"created" json:"date"`
 }
 
@@ -25,7 +25,7 @@ type Alert struct {
 	UserId   int64     `json:"user_id"`
 	Message  string    `xorm:"varchar(1000) not null" json:"message"`
 	Severity int8      `json:"severity"`
-	Date     time.Time `xorm:"created" date:"date"`
+	Date     time.Time `xorm:"created" json:"date"`
 }
 
 type Food struct {
@@ -40,7 +40,7 @@ type Food struct {
 type Equipement struct {
 	Id      int64  `json:"id"`
 	UserId  int64  `json:"user_id"`
-	Name    string `xorm:"varchar(16) not null" json="name"`
+	Name    string `xorm:"varchar(16) not null" json:"name"`
 	InStock bool   `json:"in_stock"`
 }
 

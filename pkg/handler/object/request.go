@@ -46,3 +46,12 @@ type CreateEquipement struct {
 type GetEquipements struct {
 	UserId int64 `json:"user_id"`
 }
+
+type CreatePosition struct {
+	Latitude  float64 `json:"lat"`
+	Longitude float64 `json:"lon"`
+}
+
+type GetPosition struct {
+	UserId int64 `json:"user_id"`
+}

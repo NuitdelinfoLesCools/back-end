@@ -1,8 +1,7 @@
 package handler
 
 import (
-	"strconv"
-
+	jwt "github.com/appleboy/gin-jwt"
 	"github.com/gin-gonic/gin"
 
 	"github.com/NuitdelinfoLesCools/back-end/pkg/handler/object"
@@ -30,19 +29,14 @@ func CreateMission(c *gin.Context) {
 }
 
 func GetMission(c *gin.Context) {
-	userId := c.Query("user_id")
-	userIdf, err := strconv.Atoi(userId)
-	if err != nil {
-		c.JSON(200, object.Fail(err))
-		return
-	}
+	claims := jwt.ExtractClaims(c)
+	id := claims["id"]
 
-	missions, err := store.Agent.GetMissions(int64(userIdf))
+	missions, err := store.Agent.GetMissions(int64(id.(float64)))
 	if err != nil {
 		c.JSON(200, object.Fail(err))
 		return
 	}
 
 	c.JSON(200, object.Success(missions))
-
 }

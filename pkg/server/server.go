@@ -50,6 +50,10 @@ func constructServer(server *gin.Engine) {
 	USER := server.Group("/user")
 	USER.Use(mdl.MiddlewareFunc())
 
+	POS := USER.Group("/pos")
+	POS.GET("/", handler.GetPositions)
+	POS.PUT("/", handler.CreatePosition)
+
 	USER.POST("/refresh_token", mdl.RefreshHandler)
 
 	PROTECTED := server.Group("/")
@@ -70,4 +74,8 @@ func constructServer(server *gin.Engine) {
 	EQUIPMENT := PROTECTED.Group("/equipment")
 	EQUIPMENT.GET("/", handler.GetEquipement)
 	EQUIPMENT.POST("/create", handler.CreateEquipement)
+
+	WEATHER := PROTECTED.Group("/weather")
+	WEATHER.GET("/", handler.GetWeather)
+
 }

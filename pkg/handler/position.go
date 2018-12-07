@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"time"
+
 	jwt "github.com/appleboy/gin-jwt"
 	"github.com/gin-gonic/gin"
 
@@ -8,8 +10,10 @@ import (
 	"github.com/NuitdelinfoLesCools/back-end/pkg/store"
 )
 
-func CreateEquipement(c *gin.Context) {
-	data := &object.CreateEquipement{}
+func CreatePosition(c *gin.Context) {
+	claims := jwt.ExtractClaims(c)
+	id := claims["id"]
+	data := &object.CreatePosition{}
 
 	// Parse request body (json)
 	err := c.ShouldBindJSON(&data)
@@ -18,7 +22,12 @@ func CreateEquipement(c *gin.Context) {
 		return
 	}
 
-	//err = store.Agent.CreateEquipement()
+	err = store.Agent.CreatePosition(
+		int64(id.(float64)),
+		data.Latitude,
+		data.Longitude,
+		time.Now(),
+	)
 
 	if err != nil {
 		c.JSON(200, object.Fail(err))
@@ -28,16 +37,15 @@ func CreateEquipement(c *gin.Context) {
 	c.JSON(200, object.Success(nil))
 }
 
-func GetEquipement(c *gin.Context) {
+func GetPositions(c *gin.Context) {
 	claims := jwt.ExtractClaims(c)
 	id := claims["id"]
 
-	equipements, err := store.Agent.EquipementStock(int64(id.(float64)))
+	poss, err := store.Agent.GetPositions(int64(id.(float64)))
 	if err != nil {
 		c.JSON(200, object.Fail(err))
 		return
 	}
 
-	c.JSON(200, object.Success(equipements))
-
+	c.JSON(200, object.Success(poss))
 }
