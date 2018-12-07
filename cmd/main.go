@@ -49,7 +49,7 @@ func main() {
 
 	// Try to create fake data
 	{
-		if u, err := store.Agent.GetUser("test"); err == nil && u != nil {
+		if u, err := store.Agent.GetUser("test"); err == nil || u == nil {
 			store.Agent.CreateUser("test@test.test", "test", "test")
 		}
 		if missions, err := store.Agent.GetMissions(1); err == nil && len(*missions) == 0 {
