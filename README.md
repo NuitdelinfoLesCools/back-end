@@ -9,6 +9,11 @@ Deployments:
 - Docker
 - Docker-compose
 
+Executable: ./cmd/main.go + ./cmd/config.go
+Flags: -config CONFIG_PATH // Default config.yaml
+
+NOTE: THE API WILL CREATE FAKE DATA AT STARTUP IF TABLES ARE EMPTY OR DON'T EXIST
+
 # API
 
 ###### User
