@@ -1,0 +1,13 @@
+port: 9000
+static_files: /static
+static_url: ./static
+dump_data: true
+database:
+  name: nuitinfo2018
+  host: localhost
+  port: 5432
+  user: amine
+  password: a
+  ssl_mode: 0
+  max_idle_conn: 100
+  max_open_conn: 100
